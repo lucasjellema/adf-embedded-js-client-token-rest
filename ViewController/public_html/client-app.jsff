@@ -1,0 +1,12 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1" styleClass="AFStretchWidth" bottomHeight="0px" topHeight="0px" endWidth="0px"
+                           startWidth="0px" dimensionsFrom="parent">
+        <f:facet name="center">
+            <af:inlineFrame source="client-web-app/index.xhtml?token=#{sessionTokenGenerator.token}&amp;sessionid=#{session.id} "
+                            id="if1" sizing="preferred" styleClass="AFStretchWidth"/>
+        </f:facet>
+    </af:panelStretchLayout>
+
+</ui:composition>

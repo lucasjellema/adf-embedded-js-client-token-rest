@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="client-side-task-flow">
+    <default-activity>client-app</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <view id="client-app">
+      <page>/client-app.jsff</page>
+    </view>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

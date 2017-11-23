@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.9.14" id="DataBindings"
+             SeparateXMLFiles="false" Package="nl.amis.portal.view" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/index.jsf" usageId="nl_amis_portal_view_indexPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="nl_amis_portal_view_indexPageDef" path="nl.amis.portal.view.pageDefs.indexPageDef"/>
+  </pageDefinitionUsages>
+</Application>
