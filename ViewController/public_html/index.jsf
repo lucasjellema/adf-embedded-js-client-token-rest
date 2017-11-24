@@ -4,8 +4,8 @@
     <af:document title="index.jsf" id="d1">
         <af:form id="f1">
             <af:panelHeader text="Welcome Page" id="ph1">
-             <af:outputText id="us" value="Welcome User #{securityContext.userName} "/>
-             <af:outputText id="ssnid" value="Session Id #{session.id} "/>
+                <af:outputText id="us" value="Welcome User #{securityContext.userName} "/>
+                <af:outputText id="ssnid" value="Session Id #{session.id} "/>
                 <af:region value="#{bindings.clientsidetaskflow1.regionModel}" id="r1"/>
             </af:panelHeader>
         </af:form>

@@ -6,6 +6,9 @@
     <variableIterator id="variables"/>
     <taskFlow id="clientsidetaskflow1" taskFlowId="/WEB-INF/client-side-task-flow.xml#client-side-task-flow"
               activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
+    <taskFlow id="externalclientapptaskflow1"
+              taskFlowId="/WEB-INF/external-client-app-task-flow.xml#external-client-app-task-flow"
+              activation="deferred" xmlns="http://xmlns.oracle.com/adf/controller/binding"/>
   </executables>
   <bindings/>
 </pageDefinition>

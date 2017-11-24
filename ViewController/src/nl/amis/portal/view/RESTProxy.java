@@ -32,7 +32,6 @@ import oracle.security.restsec.jwt.VerifyException;
 public class RESTProxy extends HttpServlet {
     private static final String CONTENT_TYPE = "application/json; charset=UTF-8";
 
-            
 
     public void init(ServletConfig config) throws ServletException {
         super.init(config);
@@ -40,103 +39,111 @@ public class RESTProxy extends HttpServlet {
 
     private TokenDetails validateToken(HttpServletRequest request) {
         TokenDetails td = new TokenDetails();
-        try{
-        boolean tokenAccepted = false;
-        boolean tokenValid = false;
-        // 1. check if session context established (based on JSESSIONID and in same session
-        System.out.println("session identifier " + request.getSession().getId());
-        SecurityContext secCntx = ADFContext.getCurrent().getSecurityContext();
-        String user = secCntx.getUserPrincipal().getName();
-        String _user = secCntx.getUserName();
-
-        System.out.println("Security Context already set - session established User = " + _user);
-        td.setIsJSessionEstablished(true);
-        // 2. check if request contains token
-
-        // Get the HTTP Authorization header from the request
-        String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
-
-        // Extract the token from the HTTP Authorization header
-        String tokenString = authorizationHeader.substring("Bearer".length()).trim();
-
-        String jwtToken = "";
-        String issuer = "";
-td.setIsTokenPresent(true);
-
         try {
-            JwtToken token = new JwtToken(tokenString);
-            // verify whether token was signed with my key
-            // key = myKey
-            String yourKey = "yourKey";
-            boolean result = token.verify(yourKey.getBytes());
-            if (!result) {
-                System.out.println("Token was not signed with your key");
+            boolean tokenAccepted = false;
+            boolean tokenValid = false;
+            // 1. check if session context established (based on JSESSIONID and in same session
+            System.out.println("session identifier " + request.getSession().getId());
+            SecurityContext secCntx = ADFContext.getCurrent().getSecurityContext();
+            String user = secCntx.getUserPrincipal().getName();
+            String _user = secCntx.getUserName();
+
+            System.out.println("Security Context already set - session established User = " + _user);
+            td.setIsJSessionEstablished(true);
+            // 2. check if request contains token
+
+            // Get the HTTP Authorization header from the request
+            String authorizationHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+
+            // Extract the token from the HTTP Authorization header
+            String tokenString = authorizationHeader.substring("Bearer".length()).trim();
+
+            String jwtToken = "";
+            String issuer = "";
+            td.setIsTokenPresent(true);
+
+            try {
+                JwtToken token = new JwtToken(tokenString);
+                // verify whether token was signed with my key
+                // key = myKey
+                String yourKey = "yourKey";
+                boolean result = token.verify(yourKey.getBytes());
+                if (!result) {
+                    System.out.println("Token was not signed with your key");
+                }
+                String myKey = "myKey";
+                result = token.verify(myKey.getBytes());
+                if (!result) {
+                    System.out.println("Token was not signed with MY KEY");
+                    td.addMotivation("Token was not signed with correct key");
+                } else {
+                    System.out.println("Token was correctly signed with MY KEY");
+                    td.setIsTokenVerified(true);
+                    td.setJwtTokenString(tokenString);
+                    tokenAccepted = false;
+                }
+
+                // Validate the issued and expiry time stamp.
+                if (token.getExpiryTime().after(new Date())) {
+                    System.out.println("Token is still valid");
+                    jwtToken = tokenString;
+                    tokenValid = true;
+                    td.setIsTokenFresh(true);
+                } else {
+                    System.out.println("Token is NOT valid ANYMORE");
+                    td.addMotivation("Token has expired");
+                }
+
+                // Get the issuer from the token
+                issuer = token.getIssuer();
+                System.out.println("Token issuer = " + issuer);
+
+                // check on issuer
+                System.out.println("Servlet inspected token " + token);
+                td.setIsTokenAccepted(td.isIsTokenPresent() && td.isIsTokenFresh() && td.isIsTokenVerified());
+
+                return td;
+
+            } catch (JwtException e) {
+                System.out.println("Servlet failed to inspect token " + e.getMessage());
+                td.addMotivation("No valid token was found in request");
+
+            } catch (VerifyException e) {
+                System.out.println("Servlet failed to verify token " + e.getMessage());
+                td.addMotivation("Token was not verified (not signed using correct key");
+
             }
-            String myKey = "myKey";
-            result = token.verify(myKey.getBytes());
-            if (!result) {
-                System.out.println("Token was not signed with MY KEY");
-                td.addMotivation("Token was not signed with correct key" );
-            } else {
-                System.out.println("Token was correctly signed with MY KEY");
-        td.setIsTokenVerified(true);
-                td.setJwtTokenString(tokenString);
-                tokenAccepted = false;
-            }
-
-            // Validate the issued and expiry time stamp.
-            if (token.getExpiryTime().after(new Date())) {
-                System.out.println("Token is still valid");
-                jwtToken = tokenString;
-                tokenValid = true;
-                td.setIsTokenFresh(true);
-            } else {
-                System.out.println("Token is NOT valid ANYMORE");
-                td.addMotivation("Token has expired" );
-            }
-
-            // Get the issuer from the token
-            issuer = token.getIssuer();
-            System.out.println("Token issuer = " + issuer);
-            
-            // check on issuer
-            System.out.println("Servlet inspected token " + token);
-            td.setIsTokenAccepted( td.isIsTokenPresent() && td.isIsTokenFresh()&& td.isIsTokenVerified());
-
-            return td;
-
-        } catch (JwtException e) {
-            System.out.println("Servlet failed to inspect token " + e.getMessage());
-            td.addMotivation("No valid token was found in request" );
-
-        } catch (VerifyException e) {
-            System.out.println("Servlet failed to verify token " + e.getMessage());
-            td.addMotivation("Token was not verified (not signed using correct key" );
-
-        }
         } catch (Exception e) {
-            System.out.println("Exception while validating token "+e.getMessage());
-            td.addMotivation("No valid token was found in request" );
- }
+            System.out.println("Exception while validating token " + e.getMessage());
+            td.addMotivation("No valid token was found in request");
+        }
         return td;
     }
 
+    private void addCORS(HttpServletResponse response) {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
+        response.setHeader("Access-Control-Max-Age", "3600");
+        response.setHeader("Access-Control-Allow-Headers", "x-requested-with");
+    }
+
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        
+
         TokenDetails td = validateToken(request);
         if (!td.isIsTokenAccepted()) {
             response.setContentType(CONTENT_TYPE);
             response.setStatus(HttpServletResponse.SC_FORBIDDEN);
             response.addHeader("Refusal-Motivation", td.getMotivation());
+            addCORS(response);
             response.getOutputStream().close();
         } else {
 
             // parse token, get details for user; get stuff from cache
-            Map userMap = (Map)new TokenCache().retrieveFromCache(td.getJwtTokenString());
+            Map userMap = (Map) new TokenCache().retrieveFromCache(td.getJwtTokenString());
 
-System.out.println("Retrieved User Map - ");
-            System.out.println("Principal "+ userMap.get("principal"));
-            System.out.println("Roles "+ userMap.get("roles"));
+            System.out.println("Retrieved User Map - ");
+            System.out.println("Principal " + userMap.get("principal"));
+            System.out.println("Roles " + userMap.get("roles"));
 
 
             // 3. get URL path for REST call
@@ -161,6 +168,9 @@ System.out.println("Retrieved User Map - ");
 
 
             response.setContentType(CONTENT_TYPE);
+            // see http://javahonk.com/enable-cors-cross-origin-requests-restful-web-service/
+            addCORS(response);
+
             response.setStatus(conn.getResponseCode());
             RESTProxy.copyStream(conn.getInputStream(), response.getOutputStream());
             response.getOutputStream().close();
@@ -191,14 +201,14 @@ System.out.println("Retrieved User Map - ");
     private class TokenDetails {
         private String jwtTokenString;
         private String motivation;
-        
+
         private boolean isJSessionEstablished; // Http Session could be reestablished
         private boolean isTokenVerified; // signed with correct key
         private boolean isTokenFresh; // not expired yet
         private boolean isTokenPresent; // is there a token at all
         private boolean isTokenValid; // can it be parsed
         private boolean isTokenIssued; // issued by a trusted token issuer
-        
+
         private boolean isTokenAccepted = false; // overall conclusion
 
 
@@ -267,8 +277,9 @@ System.out.println("Retrieved User Map - ");
         }
 
         private void addMotivation(String motivation) {
-            this.motivation = this.motivation+";"+motivation;
+            this.motivation = this.motivation + ";" + motivation;
         }
+
         private void setMotivation(String motivation) {
             this.motivation = motivation;
         }
@@ -277,5 +288,5 @@ System.out.println("Retrieved User Map - ");
             return motivation;
         }
     }
-    
+
 }

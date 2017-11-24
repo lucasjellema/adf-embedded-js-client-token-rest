@@ -21,4 +21,41 @@
       <property
          name="exceptionHandler">false</property>
    </View>
+   <View
+      id="View3">
+      <property
+         name="activityId">external</property>
+      <property
+         name="pageFragment">true</property>
+      <property
+         name="x">744.0</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>external&lt;/b>&lt;/p>&lt;p>Activity Type:  View&lt;/p></property>
+      <property
+         name="y">117.29883</property>
+      <property
+         name="page">/external.jsff</property>
+      <property
+         name="exceptionHandler">false</property>
+   </View>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="View2"
+      to="View3">
+      <property
+         name="fromOutcome">go</property>
+      <property
+         name="sdm:polyPoints">R50,498.0,155.5459,703.0,116.94824,L50</property>
+   </ControlFlowCase>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase5"
+      from="View3"
+      to="View2">
+      <property
+         name="fromOutcome">back</property>
+      <property
+         name="sdm:polyPoints">L54,703.0,120.44824,498.65326,159.0459,R54</property>
+   </ControlFlowCase>
 </SDM>

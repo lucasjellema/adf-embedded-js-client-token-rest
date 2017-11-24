@@ -8,6 +8,23 @@
     <view id="client-app">
       <page>/client-app.jsff</page>
     </view>
+    <view id="external">
+      <page>/external.jsff</page>
+    </view>
+    <control-flow-rule id="__1">
+      <from-activity-id>client-app</from-activity-id>
+      <control-flow-case id="__2">
+        <from-outcome>go</from-outcome>
+        <to-activity-id>external</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <control-flow-rule id="__3">
+      <from-activity-id>external</from-activity-id>
+      <control-flow-case id="__4">
+        <from-outcome>back</from-outcome>
+        <to-activity-id>client-app</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
     <use-page-fragments/>
   </task-flow-definition>
 </adfc-config>

@@ -8,8 +8,10 @@
   </definitionFactories>
   <pageMap>
     <page path="/index.jsf" usageId="nl_amis_portal_view_indexPageDef"/>
+    <page path="/index2.jsf" usageId="nl_amis_portal_view_index2PageDef"/>
   </pageMap>
   <pageDefinitionUsages>
     <page id="nl_amis_portal_view_indexPageDef" path="nl.amis.portal.view.pageDefs.indexPageDef"/>
+    <page id="nl_amis_portal_view_index2PageDef" path="nl.amis.portal.view.pageDefs.index2PageDef"/>
   </pageDefinitionUsages>
 </Application>

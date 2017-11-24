@@ -80,6 +80,11 @@
     <filter-name>adfBindings</filter-name>
     <filter-class>oracle.adf.model.servlet.ADFBindingFilter</filter-class>
   </filter>
+  <filter>
+    <description>CORSFilter</description>
+    <filter-name>CORSFilter</filter-name>
+    <filter-class>nl.amis.portal.view.RESTProxyCORSFilter</filter-class>
+  </filter>
   <filter-mapping>
     <filter-name>JpsFilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -105,6 +110,10 @@
     <servlet-name>Faces Servlet</servlet-name>
     <dispatcher>FORWARD</dispatcher>
     <dispatcher>REQUEST</dispatcher>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>CORSFilter</filter-name>
+    <url-pattern>/restproxy/*</url-pattern>
   </filter-mapping>
   <context-param>
     <param-name>javax.faces.STATE_SAVING_METHOD</param-name>
