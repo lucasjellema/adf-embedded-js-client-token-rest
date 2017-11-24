@@ -1,0 +1,14 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelStretchLayout id="psl1" styleClass="AFStretchWidth" bottomHeight="0px" topHeight="0px" endWidth="0px"
+                           startWidth="0px" dimensionsFrom="parent">
+        <f:facet name="center">
+            <af:panelGroupLayout id="pg1">
+                <af:button text="Internal" id="b1" action="back"/>
+                <af:inlineFrame source="http://127.0.0.1:3300/index.xhtml?token=#{sessionTokenGenerator.token}&amp;sessionid=#{session.id} "
+                                id="if1" sizing="preferred" styleClass="AFStretchWidth"/>
+            </af:panelGroupLayout>
+        </f:facet>
+    </af:panelStretchLayout>
+</ui:composition>

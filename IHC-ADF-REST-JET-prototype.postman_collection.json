@@ -1,0 +1,190 @@
+{
+	"info": {
+		"name": "IHC-ADF-REST-JET-prototype",
+		"_postman_id": "fcc7c0fd-a1b1-f8c2-8136-eeef79079f9f",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get People from REST Backend",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:7101/RESTBackend/resources/rest-api/person",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "7101",
+					"path": [
+						"RESTBackend",
+						"resources",
+						"rest-api",
+						"person"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get People from Token-enabled REST Backend",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJFeHRyYVBhcmFtMiI6InNjb3R0Iiwic3ViIjoic2NvdHQiLCJFeHRyYVBhcmFtIjoicGFyYW0gZGluZyIsImlzcyI6IkFERl9KRVRfUkVTVF9BUFAiLCJleHAiOjE1MTE0NTAzMzYsImlhdCI6MTUxMTQ1MDAzNn0.qKbc5ZSt0zKOLkEq6AzNkgvraK1u1e2WQfkMdFhGlyFd1193V2x0-sYoGfK-PDoC9ZHsUTX6hQdAzt1c-LGgbw",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:7101/RESTBackend/direct-resources/rest-api/person",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "7101",
+					"path": [
+						"RESTBackend",
+						"direct-resources",
+						"rest-api",
+						"person"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get People from via REST Proxy ",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:7101/ADF_JET_REST-ViewController-context-root/restproxy/rest-api/person",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "7101",
+					"path": [
+						"ADF_JET_REST-ViewController-context-root",
+						"restproxy",
+						"rest-api",
+						"person"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get People from via REST Proxy with Token",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJFeHRyYVBhcmFtMiI6InNjb3R0Iiwic3ViIjoic2NvdHQiLCJFeHRyYVBhcmFtIjoicGFyYW0gZGluZyIsImlzcyI6IkFERl9KRVRfUkVTVF9BUFAiLCJleHAiOjE1MTE0NjMxMTksImlhdCI6MTUxMTQ2MjgxOX0.QI2FKAqajoGPmMiZ7Zo9aqCU9ywowd8bQa_u2DcQ0KXV1J_BSqjZie6cfTeDofCD47yiCfDeB-OsdPine1r_xA",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:7101/ADF_JET_REST-ViewController-context-root/restproxy/rest-api/person",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "7101",
+					"path": [
+						"ADF_JET_REST-ViewController-context-root",
+						"restproxy",
+						"rest-api",
+						"person"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Get Cache Content for Token",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json"
+					}
+				],
+				"body": {},
+				"url": {
+					"raw": "http://127.0.0.1:7101/ADF_JET_REST-ViewController-context-root/app-rest/cache/eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJFeHRyYVBhcmFtMiI6InNjb3R0Iiwic3ViIjoic2NvdHQiLCJFeHRyYVBhcmFtIjoicGFyYW0gZGluZyIsImlzcyI6IkFERl9KRVRfUkVTVF9BUFAiLCJleHAiOjE1MTE0NjA4NzgsImlhdCI6MTUxMTQ2MDU3OH0.dIn65Eb_nt4x0g_uMyj6pzwE094SPuru8BhvXwK5tMGlxpjPR3a-D3l9pUP3J_gltvAG4BRxJP1hL-dUfMMgtQ",
+					"protocol": "http",
+					"host": [
+						"127",
+						"0",
+						"0",
+						"1"
+					],
+					"port": "7101",
+					"path": [
+						"ADF_JET_REST-ViewController-context-root",
+						"app-rest",
+						"cache",
+						"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiJ9.eyJFeHRyYVBhcmFtMiI6InNjb3R0Iiwic3ViIjoic2NvdHQiLCJFeHRyYVBhcmFtIjoicGFyYW0gZGluZyIsImlzcyI6IkFERl9KRVRfUkVTVF9BUFAiLCJleHAiOjE1MTE0NjA4NzgsImlhdCI6MTUxMTQ2MDU3OH0.dIn65Eb_nt4x0g_uMyj6pzwE094SPuru8BhvXwK5tMGlxpjPR3a-D3l9pUP3J_gltvAG4BRxJP1hL-dUfMMgtQ"
+					]
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
